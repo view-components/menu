@@ -11,15 +11,18 @@ class MenuFacade
 {
     const MAIN_MENU = 'main';
 
-    /** @var Container[] */
+    /** @var MenuContainer[] */
     protected static $menuSets = [];
 
     /** @var ComponentStorage[] */
     protected static $storages = [];
 
     /**
+     * Returns menu by id.
+     * Creates new menu if menu with specified id not exists.
+     *
      * @param string $id
-     * @return Container
+     * @return MenuContainer
      */
     public static function get($id)
     {
@@ -31,11 +34,21 @@ class MenuFacade
         return self::$menuSets[$id] = self::create();
     }
 
+    /**
+     * Returns main menu.
+     *
+     * @return MenuContainer
+     */
     public static function main()
     {
         return self::get(self::MAIN_MENU);
     }
 
+    /**
+     * Sets storage for loading and saving menues.
+     *
+     * @param KeyValueStorageInterface $storage
+     */
     public static function useStorage(KeyValueStorageInterface $storage)
     {
         if (!$storage instanceof ComponentStorage) {
@@ -44,22 +57,11 @@ class MenuFacade
         array_unshift(self::$storages, $storage);
     }
 
-    protected static function getContainerFactory()
-    {
-        return Services::get('menu_container_factory');
-    }
-
     /**
-     * @return callable
-     */
-    public static function getItemFactory()
-    {
-        return Services::get('menu_item_factory');
-    }
-
-    /**
+     * Loads menu from storage.
+     *
      * @param string $id
-     * @return Container|null
+     * @return MenuContainer|null
      */
     public static function load($id)
     {
@@ -72,11 +74,11 @@ class MenuFacade
         return null;
     }
 
-    protected static function create()
-    {
-        return call_user_func(self::getContainerFactory());
-    }
-
+    /**
+     * Saves menu to storage.
+     *
+     * @param string $id
+     */
     public static function save($id)
     {
         if (!self::hasStorages()) {
@@ -87,6 +89,34 @@ class MenuFacade
         $storage = self::getMenuStorage($id) ?: self::getLastRegisteredStorage();
         $menu = self::get($id);
         $storage->set($key, $menu);
+    }
+
+    /**
+     * Returns factory of menu items used by default.
+     *
+     * @return callable
+     */
+    public static function getItemFactory()
+    {
+        return Services::get(MenuServiceId::ITEM_FACTORY);
+    }
+
+    /**
+     * @return callable
+     */
+    protected static function getContainerFactory()
+    {
+        return Services::get('menu_container_factory');
+    }
+
+    /**
+     * Creates menu.
+     *
+     * @return MenuContainer
+     */
+    protected static function create()
+    {
+        return call_user_func(self::getContainerFactory());
     }
 
     /**

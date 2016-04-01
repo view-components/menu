@@ -2,10 +2,10 @@
 
 namespace ViewComponents\Menu;
 
-class ItemFactory
+class MenuItemFactory
 {
     public function __invoke()
     {
-        return new Item();
+        return new MenuItem();
     }
 }

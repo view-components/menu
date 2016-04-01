@@ -1,7 +1,6 @@
 <?php
 namespace ViewComponents\ViewComponents\Grids;
 
-use ViewComponents\Menu\Menu;
 use ViewComponents\Menu\MenuFacade;
 use ViewComponents\Menu\ServiceProvider;
 use ViewComponents\ViewComponents\Service\Bootstrap;

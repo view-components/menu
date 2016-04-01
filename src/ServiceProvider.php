@@ -18,14 +18,14 @@ class ServiceProvider implements ServiceProviderInterface
             return $finder;
         });
 
-        $container->set('menu_container_factory', function(ContainerInterface $container) {
-            return function() {
-                return new Container();
+        $container->set(MenuServiceId::CONTAINER_FACTORY, function (ContainerInterface $container) {
+            return function () {
+                return new MenuContainer();
             };
         });
 
-        $container->set('menu_item_factory', function(ContainerInterface $container) {
-            return new ItemFactory();
+        $container->set(MenuServiceId::ITEM_FACTORY, function (ContainerInterface $container) {
+            return new MenuItemFactory();
         });
     }
 }

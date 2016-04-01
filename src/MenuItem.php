@@ -5,7 +5,7 @@ namespace ViewComponents\Menu;
 use ViewComponents\ViewComponents\Component\TemplateView;
 use ViewComponents\ViewComponents\Rendering\RendererInterface;
 
-class Item extends TemplateView
+class MenuItem extends TemplateView implements MenuItemInterface
 {
     const DEFAULT_TEMPLATE = 'menu/item';
 

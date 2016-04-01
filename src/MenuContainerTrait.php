@@ -2,28 +2,20 @@
 
 namespace ViewComponents\Menu;
 
-use Closure;
-use ViewComponents\ViewComponents\Component\TemplateView;
+use Nayjest\Tree\NodeCollection;
 
-class Container extends TemplateView
+trait MenuContainerTrait
 {
-    const DEFAULT_TEMPLATE = 'menu/container';
+    private $itemFactory;
 
-    protected $itemFactory;
-
-    public function getTemplateName()
-    {
-        $template = parent::getTemplateName();
-        if ($template === null) {
-            $template = static::DEFAULT_TEMPLATE;
-            $this->setTemplateName($template);
-        }
-        return $template;
-    }
+    /**
+     * @return NodeCollection
+     */
+    abstract public function children();
 
     /**
      * @param callable $itemFactory
-     * @return Container
+     * @return MenuContainer
      */
     public function setItemFactory(callable $itemFactory)
     {
@@ -39,8 +31,9 @@ class Container extends TemplateView
         return $this->itemFactory;
     }
 
-    public function makeItem($uri = null, $text = null, $prepend = false) {
-        /** @var ItemInterface $item */
+    public function makeItem($uri = null, $text = null, $prepend = false)
+    {
+        /** @var MenuItemInterface $item */
         $item = call_user_func($this->getItemFactory());
         $item
             ->setText($text)

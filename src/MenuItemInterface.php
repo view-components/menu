@@ -2,7 +2,9 @@
 
 namespace ViewComponents\Menu;
 
-interface ItemInterface
+use ViewComponents\ViewComponents\Base\ViewComponentInterface;
+
+interface MenuItemInterface extends ViewComponentInterface
 {
     /**
      * @param string $uri
