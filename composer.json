@@ -1,0 +1,52 @@
+{
+  "name": "view-components/menu",
+  "description": "Html Menu Component",
+  "keywords": [
+    "html",
+    "menu"
+  ],
+  "homepage": "https://github.com/view-components/menu",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vitalii [Nayjest] Stepanenko",
+      "email": "mail@vitaliy.in",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "view-components/view-components": "dev-master|>=0.23.4",
+    "php": "^5.5||^7"
+  },
+  "require-dev": {
+    "view-components/testing-helpers": "^1.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "ViewComponents\\Menu\\": "src/"
+    },
+    "files": [
+      "src/bootstrap.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ViewComponents\\Menu\\Test\\Helper\\": "tests/helpers/",
+      "ViewComponents\\Menu\\Test\\": "tests/phpunit/"
+    }
+  },
+  "scripts": {
+    "post-create-project-cmd": [
+      "ViewComponents\\TestingHelpers\\Installer\\Installer::postComposerInstall"
+    ],
+    "test": "php vendor/phpunit/phpunit/phpunit",
+    "cs": "php vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=psr2 src/"
+  },
+  "support": {
+    "email": "mail@vitaliy.in",
+    "source": "https://github.com/view-components/menu",
+    "issues": "https://github.com/view-components/menu/issues"
+  },
+  "minimum-stability": "stable"
+}

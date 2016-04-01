@@ -1,0 +1,3 @@
+<ul>
+<?= $component->renderChildren() ?>
+</ul>
